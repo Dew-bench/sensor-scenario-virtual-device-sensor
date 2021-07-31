@@ -1,18 +1,11 @@
-FROM luciantin/base-ubuntu-xvfb-node
+FROM node:14
 
-WORKDIR /home
+WORKDIR /app
 
-COPY package*.json ./
-COPY imageHelper.js ./
-COPY vCamera.js ./
-COPY vDroneHandler.js ./
-COPY server.js ./
-COPY start.sh ./
+COPY package.json ./
 
-RUN npm install .
-RUN chmod +x start.sh
-RUN apt-get install dos2unix
-RUN dos2unix start.sh
+RUN npm install
 
-#CMD ["/bin/bash"]
-CMD ["./start.sh"]
+COPY . .
+
+CMD [ "node", "server.js" ]
